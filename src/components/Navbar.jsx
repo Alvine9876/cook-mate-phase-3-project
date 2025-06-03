@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ onSearch }) {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   function handleInputChange(e) {
     setQuery(e.target.value);
@@ -42,10 +44,14 @@ export default function Navbar({ onSearch }) {
           Search
         </button>
 
-        {/* Other Buttons */}
-        <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
+        {/* Recipes button navigates home */}
+        <button
+          onClick={() => navigate("/")}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full"
+        >
           Recipes
         </button>
+        
         <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
           Saved
         </button>

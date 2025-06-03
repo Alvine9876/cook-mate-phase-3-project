@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
 
-
 const BATCH_SIZE = 12;
 
-export default function HomePage() {
+export default function HomePage({ navSearchQuery }) {
   const [recipes, setRecipes] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("chicken");
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -19,7 +16,7 @@ export default function HomePage() {
       setError(null);
       try {
         const res = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchQuery}`
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=${navSearchQuery}`
         );
         const data = await res.json();
         setRecipes(data.meals || []);
@@ -31,7 +28,7 @@ export default function HomePage() {
     }
 
     fetchRecipes();
-  }, [searchQuery]);
+  }, [navSearchQuery]);
 
   const currentBatch = recipes.slice(0, BATCH_SIZE);
 
@@ -48,19 +45,8 @@ export default function HomePage() {
     if (recipe.strYoutube) {
       const embedUrl = recipe.strYoutube.replace("watch?v=", "embed/");
       setVideoUrl(embedUrl);
-      setSelectedRecipe(null);
     } else {
       alert("No video available for this recipe.");
-    }
-  }
-
-  function handleViewDetails(idMeal) {
-    const recipe = recipes.find((r) => r.idMeal === idMeal);
-    if (recipe) {
-      setSelectedRecipe(recipe);
-      setVideoUrl(null);
-    } else {
-      alert("Recipe details not found");
     }
   }
 
@@ -68,19 +54,19 @@ export default function HomePage() {
     setVideoUrl(null);
   }
 
-  if (loading)
-    return <div className="p-6 text-black text-center">Loading recipes...</div>;
-
-  if (error)
-    return (
-      <div className="p-6 text-red-600 text-center">
-        Error fetching recipes: {error}
-      </div>
-    );
-
   return (
     <div className="min-h-screen bg-white p-6">
-      <h1 className="text-4xl font-bold text-green-700 mb-6">Trending🔥</h1>
+      <h1 className="text-4xl font-bold text-green-700 mb-4">Trending🔥</h1>
+
+      {loading && (
+        <div className="p-6 text-black text-center">Loading recipes...</div>
+      )}
+
+      {error && (
+        <div className="p-6 text-red-600 text-center">
+          Error fetching recipes: {error}
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-6 justify-center">
         {currentBatch.length > 0 ? (
@@ -93,17 +79,16 @@ export default function HomePage() {
                 image: recipe.strMealThumb || "https://via.placeholder.com/150",
               }}
               onFavorite={() => handleFavorite(recipe.strMeal)}
-              onViewDetails={() => handleViewDetails(recipe.idMeal)}
               onViewVideo={() => handleViewVideo(recipe)}
               cardColor="white"
             />
           ))
         ) : (
-          <p className="text-black">No recipes found for "{searchQuery}"</p>
+          <p className="text-black">No recipes found for "{navSearchQuery}"</p>
         )}
       </div>
 
-      {/* Video modal */}
+      {/* ✅ Video modal */}
       {videoUrl && (
         <div
           onClick={closeVideo}
@@ -127,64 +112,6 @@ export default function HomePage() {
               className="mt-4 bg-green-600 hover:bg-green-700 text-white w-full py-2 rounded"
             >
               Close Video
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Recipe details modal */}
-      {selectedRecipe && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50 p-4"
-          onClick={() => setSelectedRecipe(null)}
-        >
-          <div
-            className="bg-green-100 rounded-lg max-w-3xl w-full p-6 overflow-auto"
-            onClick={(e) => e.stopPropagation()}
-            style={{ maxHeight: "80vh" }}
-          >
-            <h2 className="text-2xl text-green-800 font-bold mb-4">
-              {selectedRecipe.strMeal}
-            </h2>
-            <img
-              src={selectedRecipe.strMealThumb}
-              alt={selectedRecipe.strMeal}
-              className="w-full rounded mb-6"
-            />
-
-            {/* Ingredients */}
-            <h3 className="text-green-700 text-lg font-semibold mb-2">🧂 Ingredients:</h3>
-            <ul className="list-disc list-inside text-green-900 mb-6 space-y-1">
-              {Array.from({ length: 20 }).map((_, i) => {
-                const ingredient = selectedRecipe[`strIngredient${i + 1}`];
-                const measure = selectedRecipe[`strMeasure${i + 1}`];
-                if (ingredient && ingredient.trim()) {
-                  return (
-                    <li key={i}>
-                      {measure?.trim()} {ingredient.trim()}
-                    </li>
-                  );
-                }
-                return null;
-              })}
-            </ul>
-
-            {/* Instructions */}
-            <h3 className="text-green-700 text-lg font-semibold mb-2">👨‍🍳 Steps:</h3>
-            <ol className="list-decimal list-inside text-green-900 space-y-2 mb-6">
-              {selectedRecipe.strInstructions
-                .split(/(?<=\.)\s+/)
-                .filter((step) => step.trim().length > 0)
-                .map((step, index) => (
-                  <li key={index}>{step.trim()}</li>
-                ))}
-            </ol>
-
-            <button
-              onClick={() => setSelectedRecipe(null)}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-            >
-              Close Details
             </button>
           </div>
         </div>
