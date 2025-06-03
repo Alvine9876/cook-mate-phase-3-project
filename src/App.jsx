@@ -1,0 +1,27 @@
+import React, { useState } from "react";
+import "./App.css";
+import HomePage from "./Pages/HomePage";
+import SavedPage from "./Pages/SavedPage";
+import RecipesPage from "./Pages/RecipesPage";
+import Navbar from "./components/Navbar";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+export default function App() {
+  const [navSearchQuery, setNavSearchQuery] = useState("chicken");
+
+  return (
+    <Router>
+      <div className="min-h-screen bg-white text-black flex flex-col">
+        <Navbar onSearch={(query) => setNavSearchQuery(query)} />
+        <main className="flex-grow p-6">
+          <Routes>
+            <Route path="/" element={<HomePage navSearchQuery={navSearchQuery} />} />
+            <Route path="/saved" element={<SavedPage />} />
+            <Route path="/recipes" element={<RecipesPage />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+}
