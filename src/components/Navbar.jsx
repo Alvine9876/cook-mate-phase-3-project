@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 
 export default function Navbar({ onSearch }) {
   const [query, setQuery] = useState("");
@@ -43,12 +44,18 @@ export default function Navbar({ onSearch }) {
         </button>
 
         {/* Other Buttons */}
+        <Link to = "/">
         <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
           Recipes
         </button>
+        </Link>
+
+        <Link to = "/saved">
         <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
           Saved
         </button>
+        </Link>
+
         <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
           Sign In
         </button>

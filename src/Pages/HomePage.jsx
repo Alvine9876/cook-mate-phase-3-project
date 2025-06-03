@@ -35,14 +35,44 @@ export default function HomePage() {
 
   const currentBatch = recipes.slice(0, BATCH_SIZE);
 
-  function handleFavorite(title) {
-    if (!favorites.includes(title)) {
-      setFavorites([...favorites, title]);
-      alert("Added to favorites!");
-    } else {
-      alert("Already in favorites!");
-    }
+
+
+async function handleFavorite(recipe) {
+  const alreadySaved = favorites.some((fav) => fav.recipe_id === recipe.id);
+  if (alreadySaved) {
+    alert("Already in favorites!");
+    return;
   }
+
+  const favoriteData = {
+    recipe_id: recipe.id,
+    title: recipe.title,
+    image: recipe.image,
+    instructions: recipe.instructions,
+  };
+
+  try {
+    const res = await fetch("http://localhost:8000/favorites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(favoriteData),
+    });
+
+    if (!res.ok) throw new Error("Failed to save recipe");
+
+    setFavorites((prev) => [...prev, favoriteData]);
+    alert("Added to favorites!");
+  } catch (error) {
+    console.error("Save error:", error);
+    alert("Failed to save recipe.");
+  }
+}
+
+
+
+
+
+
 
   function handleViewVideo(recipe) {
     if (recipe.strYoutube) {
@@ -92,7 +122,24 @@ export default function HomePage() {
                 title: recipe.strMeal,
                 image: recipe.strMealThumb || "https://via.placeholder.com/150",
               }}
-              onFavorite={() => handleFavorite(recipe.strMeal)}
+              // onFavorite={() => handleFavorite(recipe.strMeal)}
+
+
+
+            onFavorite={() =>
+              handleFavorite({
+                 id: recipe.idMeal,
+                 title: recipe.strMeal,
+                 image: recipe.strMealThumb || "https://via.placeholder.com/150",
+                 instructions: recipe.strInstructions
+                 
+              })
+            }
+
+
+
+
+
               onViewDetails={() => handleViewDetails(recipe.idMeal)}
               onViewVideo={() => handleViewVideo(recipe)}
               cardColor="white"

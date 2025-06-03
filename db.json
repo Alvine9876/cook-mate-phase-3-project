@@ -1,0 +1,72 @@
+{
+  "favorites": [
+    {
+      "id": "1",
+      "recipe_id": "52772",
+      "title": "Teriyaki Chicken Casserole",
+      "image": "https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg",
+      "instructions": "Preheat oven to 350 degrees F. Spray a 9x13-inch baking pan with non-stick spray. Combine soy sauce, 1/2 cup water, brown sugar, ginger and garlic in a saucepan over medium heat...",
+      "youtube_url": "https://www.youtube.com/watch?v=4aZr5hZXP_s"
+    },
+    {
+      "id": "2",
+      "recipe_id": "52814",
+      "title": "Chicken Alfredo Primavera",
+      "image": "https://www.themealdb.com/images/media/meals/syqypv1486981727.jpg",
+      "instructions": "Heat a large nonstick skillet over medium-high heat. Add chicken; cook and stir until browned...",
+      "youtube_url": "https://www.youtube.com/watch?v=qCIb9N6SW5Y"
+    },
+    {
+      "id": "9e9d",
+      "recipe_id": "52795",
+      "title": "Chicken Handi",
+      "image": "https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg"
+    },
+    {
+      "id": "33fc",
+      "recipe_id": "52956",
+      "title": "Chicken Congee",
+      "image": "https://www.themealdb.com/images/media/meals/1529446352.jpg"
+    },
+    {
+      "id": "f14c",
+      "recipe_id": "52795",
+      "title": "Chicken Handi",
+      "image": "https://www.themealdb.com/images/media/meals/wyxwsp1486979827.jpg",
+      "youtube": "",
+      "instructions": ""
+    },
+    {
+      "id": "8370",
+      "recipe_id": "52956",
+      "title": "Chicken Congee",
+      "image": "https://www.themealdb.com/images/media/meals/1529446352.jpg",
+      "youtube": "",
+      "instructions": ""
+    },
+    {
+      "id": "3a25",
+      "recipe_id": "52851",
+      "title": "Nutty Chicken Curry",
+      "image": "https://www.themealdb.com/images/media/meals/yxsurp1511304301.jpg",
+      "youtube": "",
+      "instructions": ""
+    },
+    {
+      "id": "1283",
+      "recipe_id": "52831",
+      "title": "Chicken Karaage",
+      "image": "https://www.themealdb.com/images/media/meals/tyywsw1505930373.jpg",
+      "youtube": "",
+      "instructions": ""
+    },
+    {
+      "id": "317a",
+      "recipe_id": "52851",
+      "title": "Nutty Chicken Curry",
+      "image": "https://www.themealdb.com/images/media/meals/yxsurp1511304301.jpg",
+      "youtube": "",
+      "instructions": ""
+    }
+  ]
+}
