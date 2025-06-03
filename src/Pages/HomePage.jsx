@@ -38,17 +38,19 @@ export default function HomePage() {
 
 
 async function handleFavorite(recipe) {
-  const alreadySaved = favorites.some((fav) => fav.recipe_id === recipe.id);
+  const alreadySaved = favorites.some((fav) => fav.id === recipe.id);
   if (alreadySaved) {
     alert("Already in favorites!");
     return;
   }
 
   const favoriteData = {
+    id: recipe.id,  // Make sure this matches what SavedPage expects
     recipe_id: recipe.id,
     title: recipe.title,
     image: recipe.image,
     instructions: recipe.instructions,
+    youtube: recipe.strYoutube || ""
   };
 
   try {
@@ -59,7 +61,7 @@ async function handleFavorite(recipe) {
     });
 
     if (!res.ok) throw new Error("Failed to save recipe");
-
+    
     setFavorites((prev) => [...prev, favoriteData]);
     alert("Added to favorites!");
   } catch (error) {
