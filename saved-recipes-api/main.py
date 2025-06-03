@@ -3,7 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
-app = FastAPI()
+app = FastAPI(
+    title="Recipe API",
+    description="API for saving, retrieving, and deleting favorite recipes.",
+    version="1.0.0"
+)
 
 # Allow requests from your frontend
 app.add_middleware(
