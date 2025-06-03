@@ -22,7 +22,8 @@ export default function RecipeCard({ recipe, onFavorite, onViewVideo }) {
       {/* Buttons section */}
       <div className="p-4 flex justify-between items-center">
         <button
-          onClick={() => onFavorite(recipe.title)}
+          onClick={() => onFavorite(() => handleFavorite(recipe.strMeal, recipe.strMealThumb, recipe.idMeal))}
+
           className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full"
         >
           ❤️ Save
