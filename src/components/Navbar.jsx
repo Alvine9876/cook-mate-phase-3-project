@@ -52,7 +52,7 @@ export default function Navbar({ onSearch }) {
           Recipes
         </button>
         
-        <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
+        <button onClick={() => navigate("/saved")} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">
           Saved
         </button>
         <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">

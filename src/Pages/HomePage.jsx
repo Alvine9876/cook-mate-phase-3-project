@@ -32,14 +32,39 @@ export default function HomePage({ navSearchQuery }) {
 
   const currentBatch = recipes.slice(0, BATCH_SIZE);
 
-  function handleFavorite(title) {
-    if (!favorites.includes(title)) {
-      setFavorites([...favorites, title]);
+
+
+
+async function handleFavorite(title, image, id) {
+  try {
+    const res = await fetch("http://127.0.0.1:8000/recipes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        title: title,
+        image: image, 
+        id:id 
+       }),
+    });
+
+
+
+    if (res.ok) {
       alert("Added to favorites!");
     } else {
-      alert("Already in favorites!");
+      const data = await res.json();
+      alert(data.detail || "Already saved");
     }
+  } catch (err) {
+    alert("Failed to save recipe.");
   }
+}
+
+
+
+
+
+
 
   function handleViewVideo(recipe) {
     if (recipe.strYoutube) {
@@ -78,7 +103,12 @@ export default function HomePage({ navSearchQuery }) {
                 title: recipe.strMeal,
                 image: recipe.strMealThumb || "https://via.placeholder.com/150",
               }}
-              onFavorite={() => handleFavorite(recipe.strMeal)}
+
+           onFavorite={() =>
+                handleFavorite(recipe.strMeal, recipe.strMealThumb, recipe.idMeal)
+               }
+
+
               onViewVideo={() => handleViewVideo(recipe)}
               cardColor="white"
             />
