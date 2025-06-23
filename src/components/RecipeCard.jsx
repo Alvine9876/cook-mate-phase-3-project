@@ -19,6 +19,11 @@ export default function RecipeCard({ recipe, onFavorite, onViewVideo }) {
         {recipe.title}
       </div>
 
+      {/* Ready time info */}
+      <div className="px-4 text-sm text-gray-300 mb-2">
+        Ready in {recipe.readyInMinutes} minutes
+      </div>
+
       {/* Buttons section */}
       <div className="p-4 flex justify-between items-center">
         <button
